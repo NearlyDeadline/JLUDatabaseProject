@@ -49,7 +49,7 @@ create table section
 	);
 
 create table teaches
-	(ID			varchar(5), 
+	(ID			 varchar(5), 
 	 course_id		 varchar(8),
 	 sec_id	 		varchar(8), 
 	 semester	 	varchar(6),
