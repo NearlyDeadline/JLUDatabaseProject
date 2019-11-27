@@ -1,7 +1,7 @@
-¿Ó:
-1.²»Ö§³Öintersect
-2.²»Ö§³Öexcept
-3.²»Ö§³Öwith as(MySQL 8.0ºóÖ§³Ö)
+å‘:
+1.ä¸æ”¯æŒintersect
+2.ä¸æ”¯æŒexcept
+3.ä¸æ”¯æŒwith as(MySQL 8.0åæ”¯æŒ)
 
 1.select * from course;
 
@@ -12,11 +12,12 @@ select distinct title from course where course_id in (select course_id from sect
 
 4.select * from student limit 6;
 
-5.//´ı²¹Íê
+5.//å¾…è¡¥å®Œ
 with A(id) as (select course_id from course as C where dept_name = 'Comp. Sci.'),
 B(id) as (select course_id from student as S, takes as T where S.ID = T.ID),
 C(id1, id2) as (select * from A left join B on A.id = B.id)
 select S.ID, S.name from S where not exists (select id1 from C where id2 = null);
+
 
 select S.ID,S.name from student as S where not exists(select * from(select course_id from course where dept_name='Comp. Sci.')as K where K.course_id  not in (select T.course_id from takes as T where S.ID=T.ID));
 
@@ -27,7 +28,7 @@ and course_id in
 where course_id not in 
 (select course_id from section where year = '2018'));
 
-7.//´ı²¹Íê
+7.SELECT ID, name, dept_name, (80-tot_cred) as A FROM university.student where dept_name = 'Comp. Sci.' and tot_cred <= 80 order by A desc;
 
 8.with a(course_id, val) as 
 (select takes.course_id, count(*) from course, takes 
@@ -45,11 +46,12 @@ from student left join choose
 on (student.ID = choose.ID and student.name = choose.name) 
 where choose.ID is null;
 
-11.//´ı²¹Íê
+11.//å¾…è¡¥å®Œ
 select sum(credits) from course where course_id in(
-select distinct ID, course_id from takes where ID in (select s_ID from advisor where i_ID in (select ID from instructor where name = 'Kim'))); and semester = 'Spring' and year = '2009');
+select course_id from (
+select distinct ID, course_id from takes where ID in (select s_ID from advisor where i_ID in (select ID from instructor where name = 'Kim')))); and semester = 'Spring' and year = '2009');
 
-11.//´ı²¹Íê
+11.select prereq_id from prereq where course_id in (select course_id from course where title = 'A') and course_id in (select prereq_id from prereq where course_id in (select course_id from course where title = 'B'));
 
 12.select year, count(course_id) from section where course_id in (select course_id from course where dept_name = 'Comp. Sci.') and (year = '2016' or year = '2017' or year = '2018') group by year;
 
@@ -57,15 +59,15 @@ select distinct ID, course_id from takes where ID in (select s_ID from advisor w
 
 14.select * from course where title like 'D%e'; 
 
-15.select * from course where title like '%ÖÆ×÷%' and not like 'ÖÆ×÷%' and title not like '%ÖÆ×÷';
+15.select * from course where title like '%åˆ¶ä½œ%' and not like 'åˆ¶ä½œ%' and title not like '%åˆ¶ä½œ';
 
-16.select * from student where name like '_±¦%';
+16.select * from student where name like '_å®%';
 
-17.select * from student where name not like 'Áõ%';
+17.select * from student where name not like 'åˆ˜%';
 
 18.select T.course_id from course as T where 1 < (select count(R.course_id) from course, section as R where T.course_id = R.course_id and R.year =  '2018');
 
-19.//´ı²¹Íê
+19.//select ID, name, tot_cred from student where
 
 20.select * from section as S where semester = 'Spring' and year = '2019' and 15 < (select count(ID) from takes as T where T.course_id = S.course_id) and 25 > (select count(ID) from takes as T where T.course_id = S.course_id);
 
@@ -80,17 +82,17 @@ select table.* from table, takes as T where table.course_id = T.course_id group 
 23.select avg(salary) from instructor as I where (I.dept_name in
 (select D.dept_name from department as D where D.dept_name <> 'Comp. Sci.' and D.building in (select D.building from department as D where D.dept_name = 'Comp. Sci.'))) group by I.dept_name;
 
-24.update instructor I set I.salary = I.salary * 1.5 where I.dept_name in (select D.dept_name from department as D where D.building = '¿ïÑÇÃ÷');
+24.update instructor I set I.salary = I.salary * 1.5 where I.dept_name in (select D.dept_name from department as D where D.building = 'åŒ¡äºšæ˜');
 
 25.select dept_name, count(ID) from student group by dept_name;
 
 26.select * from student where dept_name = 'Comp. Sci.' order by tot_cred desc limit 10;
 
-27.select count(T.ID) from teaches as T where (T.year = '2017' or T.year = '2018' or T.year = '2019') and T.ID in (select I.ID from instructor as I where I.name = 'ÀîËÄ');
+27.select count(T.ID) from teaches as T where (T.year = '2017' or T.year = '2018' or T.year = '2019') and T.ID in (select I.ID from instructor as I where I.name = 'æå››');
 
 28.select * from instructor where dept_name = 'Comp. Sci.' and salary > (select min(salary) from instructor where dept_name = 'Physics') and salary < (select max(salary) from instructor where dept_name = 'Physics');
 
-29.//´ı²¹Íê
+29.//å¾…è¡¥å®Œ
 select count(S.course_id) from section as S where S.course_id in (select C.course_id from course as C where C.dept_name = 'Comp. Sci.');
 
 30.select count(S.course_id) from section as S where S.year = '2019' and S.semester = 'Spring' and 1 > (select count(T.ID) from takes as T where S.course_id = T.course_id);
@@ -98,14 +100,13 @@ select count(S.course_id) from section as S where S.course_id in (select C.cours
 31.select * from instructor as I where I.ID in (select A.i_ID from advisor as A where A.s_ID in (select S.ID from student as S where S.dept_name = 'Comp. Sci.'));
 select * from advisor natural join instructor  where student.dept_name = 'Comp. Sci.';
 
-32.//´ı²¹Íê
+32.//å¾…è¡¥å®Œ
 
-33.select count(A.s_ID) from advisor as A where A.i_ID in (select I.ID from instructor as I where I.name = 'ÀîËÄ');
+33.select count(A.s_ID) from advisor as A where A.i_ID in (select I.ID from instructor as I where I.name = 'æå››');
 
-34.//´ı²¹Íê
-select S.* from student as S where S.ID in 
-(select T.ID from takes as T where T.course.id in 
+34.select S.* from student as S where S.ID in 
+(select T.ID from takes as T where T.course_id in 
 (select P.prereq_id from prereq as P where P.course_id in 
 (select C.course_id from course as C where C.title = 'Robotics')));
 
-35.//´ı²¹Íê
+35.select TA.ID, TE.ID, TA.course_id, TA.sec_id from takes as TA, teaches as TE, advisor as A where TA.year = '2009' and TA.semester = 'Spring' and TA.ID = A.s_ID and TE.ID = A.i_ID and TA.course_id = TE.course_id and TE.sec_id = TA.sec_id;
