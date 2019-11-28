@@ -94,6 +94,7 @@ insert into takes values ('00128', 'CS-347', '1', 'Fall', '2009', 'A-');
 insert into takes values ('12345', 'CS-101', '1', 'Fall', '2009', 'C');
 insert into takes values ('12345', 'CS-190', '2', 'Spring', '2009', 'A');
 insert into takes values ('12345', 'CS-315', '1', 'Spring', '2010', 'A');
+insert into takes values ('12345', 'CS-319', '1', 'Spring', '2010', 'A');
 insert into takes values ('12345', 'CS-347', '1', 'Fall', '2009', 'A');
 insert into takes values ('19991', 'HIS-351', '1', 'Spring', '2010', 'B');
 insert into takes values ('23121', 'FIN-201', '1', 'Spring', '2010', 'C+');
